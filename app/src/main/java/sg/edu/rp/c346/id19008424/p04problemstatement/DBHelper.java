@@ -2,8 +2,12 @@ package sg.edu.rp.c346.id19008424.p04problemstatement;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
+import java.util.ArrayList;
 
 public class DBHelper extends SQLiteOpenHelper {
 
@@ -57,4 +61,46 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
         return result;
     }
+
+//    public long insertSong(Song songContent) {
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        ContentValues values = new ContentValues();
+//        values.put(COLUMN_TITLE, songContent.setTitle());
+//        values.put(COLUMN_SINGER, songContent.setSingers());
+//        values.put(COLUMN_YEAR, songContent.setYear());
+//        values.put(COLUMN_STAR, songContent.setStars());
+//        long result = db.insert(TABLE_SONG, null, values);
+//        db.close();
+//        Log.d("SQL Insert","ID:"+ result); //id returned, shouldn’t be -1
+//        return result;
+//    }
+
+
+    public ArrayList<Song> getAllSongs(String keyword) {
+        ArrayList<Song> songs = new ArrayList<Song>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns= {COLUMN_ID, COLUMN_TITLE, COLUMN_SINGER, COLUMN_YEAR, COLUMN_STAR};
+        String condition = COLUMN_TITLE + " Like ?";
+        String[] args = { "%" +  keyword + "%"};
+        Cursor cursor = db.query(TABLE_SONG, columns, condition, args,
+                null, null, null, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(0);
+                String songTitle = cursor.getString(1);
+                String songSinger = cursor.getString(2);
+                int songYear = cursor.getInt(3);
+                int star = cursor.getInt(4);
+                Song song = new Song(songTitle, songSinger, songYear, star);
+                songs.add(song);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return songs;
+
+    }
+
 }
