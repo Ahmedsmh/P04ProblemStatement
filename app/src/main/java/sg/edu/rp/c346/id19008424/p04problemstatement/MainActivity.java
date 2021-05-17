@@ -3,9 +3,11 @@ package sg.edu.rp.c346.id19008424.p04problemstatement;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -48,8 +50,12 @@ public class MainActivity extends AppCompatActivity {
                 long inserted_song = dbh.insertNote(song,singer,numYear,number);
                 dbh.close();
 
+                //hide the keyboard in button press
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(etSong.getWindowToken(), 0);
+                imm.hideSoftInputFromWindow(etSinger.getWindowToken(), 0);
+                imm.hideSoftInputFromWindow(etYear.getWindowToken(), 0);
 
-                dbh.close();
 
                 if (inserted_song != -1){
                     Toast.makeText(MainActivity.this, "Insert successful",

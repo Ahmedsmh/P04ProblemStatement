@@ -26,7 +26,7 @@ public class SecondActivity extends AppCompatActivity {
 
         lv = findViewById(R.id.lvSongs);
         DBHelper dbSong = new DBHelper(SecondActivity.this);
-        alSong = dbSong.getAllSongs();
+        //alSong = dbSong.getAllSongs();
         btn5Stars = findViewById(R.id.btn5StarsSong);
 
         btn5Stars.setOnClickListener(new View.OnClickListener() {
