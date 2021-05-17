@@ -9,6 +9,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import java.util.ArrayList;
 
@@ -23,10 +25,15 @@ public class SecondActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
+        RadioGroup radioGroupStar = (RadioGroup) findViewById(R.id.starGroup);
+        int selectedBtn = radioGroupStar.getCheckedRadioButtonId();
+        RadioButton radioButtonStar = (RadioButton) findViewById(selectedBtn);
+        String num = String.valueOf(radioButtonStar.getText());
+        int number = Integer.valueOf(num);
 
         lv = findViewById(R.id.lvSongs);
         DBHelper dbSong = new DBHelper(SecondActivity.this);
-        //alSong = dbSong.getAllSongs();
+        alSong = dbSong.getAllSongs(num);
         btn5Stars = findViewById(R.id.btn5StarsSong);
 
         btn5Stars.setOnClickListener(new View.OnClickListener() {
