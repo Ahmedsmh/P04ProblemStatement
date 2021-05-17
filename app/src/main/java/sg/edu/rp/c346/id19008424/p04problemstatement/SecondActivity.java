@@ -39,9 +39,10 @@ public class SecondActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 alSong.clear();
-                alSong = dbSong.getAllSongs(5);
-                aaSong = new SongAdapter(SecondActivity.this, R.layout.song, alSong);
-                lv.setAdapter(aaSong);
+                alSong.addAll(dbSong.getAllSongs(5));
+
+                aaSong.notifyDataSetChanged();
+
 
             }
         });
