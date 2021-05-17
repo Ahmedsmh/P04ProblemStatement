@@ -38,7 +38,7 @@ public class SecondActivity extends AppCompatActivity {
         btn5Stars.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                if()
+//
 
             }
         });

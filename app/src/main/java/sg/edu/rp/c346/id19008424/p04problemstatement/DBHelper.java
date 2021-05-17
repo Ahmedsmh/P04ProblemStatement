@@ -87,15 +87,39 @@ public long insertNote (String songContent, String singer,int year, int stars){
 
     return result;
 }
-
-
     public ArrayList<Song> getAllSongs() {
         ArrayList<Song> songs = new ArrayList<Song>();
 
         SQLiteDatabase db = this.getReadableDatabase();
         String[] columns= {COLUMN_ID, COLUMN_TITLE, COLUMN_SINGER, COLUMN_YEAR, COLUMN_STAR};
-        String condition =  COLUMN_STAR + "=" + 5 ;
+        Cursor cursor = db.query(TABLE_SONG, columns, null,
+                null, null, null, null);
 
+
+        if (cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(0);
+                String songTitle = cursor.getString(1);
+                String songSinger = cursor.getString(2);
+                int songYear = cursor.getInt(3);
+                int star = cursor.getInt(4);
+                Song song = new Song(songTitle, songSinger, songYear, star);
+                songs.add(song);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return songs;
+
+    }
+
+
+    public ArrayList<Song> getAllSongs(int keyword) {
+        ArrayList<Song> songs = new ArrayList<Song>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns= {COLUMN_ID, COLUMN_TITLE, COLUMN_SINGER, COLUMN_YEAR, COLUMN_STAR};
+        String condition =  COLUMN_STAR + "=" + keyword ;
         Cursor cursor = db.query(TABLE_SONG, columns, condition,
                 null, null, null, null);
 
