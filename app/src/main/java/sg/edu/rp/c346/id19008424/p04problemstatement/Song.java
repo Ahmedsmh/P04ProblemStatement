@@ -9,7 +9,8 @@ public class Song implements Serializable {
     private int year;
     private int stars;
 
-    public Song(String title, String singers, int year, int stars) {
+    public Song(int id,String title, String singers, int year, int stars) {
+        this.id = id;
         this.title = title;
         this.singers = singers;
         this.year = year;
@@ -36,6 +37,9 @@ public class Song implements Serializable {
         return stars;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public void setTitle(String title) {
         this.title = title;

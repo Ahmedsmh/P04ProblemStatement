@@ -47,6 +47,7 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(COLUMN_SINGER, data.getSingers());
         values.put(COLUMN_YEAR, data.getYear());
         values.put(COLUMN_STAR, data.getStars());
+        values.put(COLUMN_ID,data.getId());
         String condition = COLUMN_ID + "= ?";
         String[] args = {String.valueOf(data.getId())};
         int result = db.update(TABLE_SONG, values, condition, args);
@@ -103,7 +104,7 @@ public long insertNote (String songContent, String singer,int year, int stars){
                 String songSinger = cursor.getString(2);
                 int songYear = cursor.getInt(3);
                 int star = cursor.getInt(4);
-                Song song = new Song(songTitle, songSinger, songYear, star);
+                Song song = new Song(id,songTitle, songSinger, songYear, star);
                 songs.add(song);
             } while (cursor.moveToNext());
         }
@@ -131,7 +132,7 @@ public long insertNote (String songContent, String singer,int year, int stars){
                 String songSinger = cursor.getString(2);
                 int songYear = cursor.getInt(3);
                 int star = cursor.getInt(4);
-                Song song = new Song(songTitle, songSinger, songYear, star);
+                Song song = new Song(id,songTitle, songSinger, songYear, star);
                 songs.add(song);
             } while (cursor.moveToNext());
         }

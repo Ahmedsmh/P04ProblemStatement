@@ -2,6 +2,7 @@ package sg.edu.rp.c346.id19008424.p04problemstatement;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 public class ThirdActivity extends AppCompatActivity {
     EditText etID,etTitle, etSinger, etYear;
@@ -16,6 +18,7 @@ public class ThirdActivity extends AppCompatActivity {
     RadioGroup RgStars;
     RadioButton RadioButtonStar, radioButton1, radioButton2, radioButton3, radioButton4, radioButton5;
     Song data;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,14 +38,17 @@ public class ThirdActivity extends AppCompatActivity {
         btnDelete = findViewById(R.id.btnDelete);
         btnCancel = findViewById(R.id.btnCancel);
 
+
         final Intent i = getIntent();
         data = (Song) i.getSerializableExtra("data");
+
 
 
         etID.setText("" + data.getId());
         etTitle.setText(data.getTitle());
         etSinger.setText(data.getSingers());
         etYear.setText("" +data.getYear());
+
         //if else to check what is the stars on the song then set the active radio button
         if (data.getStars() == 1){
             radioButton1.setChecked(true);
@@ -65,10 +71,12 @@ public class ThirdActivity extends AppCompatActivity {
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 DBHelper dbh = new DBHelper(ThirdActivity.this);
                 data.setTitle(etTitle.getText().toString());
                 data.setSingers(etSinger.getText().toString());
                 data.setYear(Integer.parseInt(etYear.getText().toString()));
+                data.setId(Integer.parseInt(etID.getText().toString()));
                 int selectedId = RgStars.getCheckedRadioButtonId();
                 if(selectedId != -1){
                     data.setStars(selectedId);

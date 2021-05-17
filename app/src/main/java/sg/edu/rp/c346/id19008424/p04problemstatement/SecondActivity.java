@@ -50,7 +50,9 @@ public class SecondActivity extends AppCompatActivity {
                 Song target = alSong.get(position);
                 Intent i = new Intent(SecondActivity.this, ThirdActivity.class);
                 i.putExtra("data", target);
+
                 startActivityForResult(i, 9);
+
             }
         });
 
