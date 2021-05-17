@@ -74,6 +74,19 @@ public class DBHelper extends SQLiteOpenHelper {
 //        Log.d("SQL Insert","ID:"+ result); //id returned, shouldn’t be -1
 //        return result;
 //    }
+public long insertNote (String songContent, String singer,int year, int stars){
+    SQLiteDatabase db = this.getWritableDatabase();
+    ContentValues values = new ContentValues();
+    values.put(COLUMN_TITLE, songContent);
+    values.put(COLUMN_SINGER, singer);
+    values.put(COLUMN_YEAR, year);
+    values.put(COLUMN_STAR, stars);
+    long result = db.insert(TABLE_SONG, null, values);
+    db.close();
+    Log.d("SQL Insert", "ID:" + result); //id returned, shouldn’t be -1
+
+    return result;
+}
 
 
     public ArrayList<Song> getAllSongs(String keyword) {
