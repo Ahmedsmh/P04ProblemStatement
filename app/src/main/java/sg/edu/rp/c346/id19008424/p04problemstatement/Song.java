@@ -32,4 +32,8 @@ public class Song implements Serializable {
         return year;
     }
 
+    public int getStars(){
+        return stars;
+    }
+
 }
