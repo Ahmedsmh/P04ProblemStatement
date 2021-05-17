@@ -29,7 +29,7 @@ public class DBHelper extends SQLiteOpenHelper {
         String createSongTableSql = "CREATE TABLE " + TABLE_SONG + "("
                 + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + COLUMN_TITLE + " TEXT," + COLUMN_SINGER + " TEXT,"
-                + COLUMN_YEAR + "INTEGER," + COLUMN_STAR + "INTEGER ) ";
+                + COLUMN_YEAR + " INTEGER," + COLUMN_STAR + " INTEGER ) ";
         db.execSQL(createSongTableSql);
 
     }
@@ -89,15 +89,16 @@ public long insertNote (String songContent, String singer,int year, int stars){
 }
 
 
-    public ArrayList<Song> getAllSongs(String keyword) {
+    public ArrayList<Song> getAllSongs() {
         ArrayList<Song> songs = new ArrayList<Song>();
 
         SQLiteDatabase db = this.getReadableDatabase();
         String[] columns= {COLUMN_ID, COLUMN_TITLE, COLUMN_SINGER, COLUMN_YEAR, COLUMN_STAR};
-        String condition = COLUMN_TITLE + " Like ?";
-        String[] args = { "%" +  keyword + "%"};
-        Cursor cursor = db.query(TABLE_SONG, columns, condition, args,
+        String condition =  COLUMN_STAR + "=" + 5 ;
+
+        Cursor cursor = db.query(TABLE_SONG, columns, condition,
                 null, null, null, null);
+
 
         if (cursor.moveToFirst()) {
             do {

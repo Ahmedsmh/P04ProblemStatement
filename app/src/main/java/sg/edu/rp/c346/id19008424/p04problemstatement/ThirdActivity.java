@@ -31,14 +31,18 @@ public class ThirdActivity extends AppCompatActivity {
         radioButton3 = findViewById(R.id.radioButton3);
         radioButton4 = findViewById(R.id.radioButton4);
         radioButton5 = findViewById(R.id.radioButton5);
+        btnUpdate = findViewById(R.id.btnUpdate);
+        btnDelete = findViewById(R.id.btnDelete);
+        btnCancel = findViewById(R.id.btnCancel);
 
         final Intent i = getIntent();
         data = (Song) i.getSerializableExtra("data");
 
+
         etID.setText("" + data.getId());
         etTitle.setText(data.getTitle());
         etSinger.setText(data.getSingers());
-        etYear.setText(data.getYear());
+        etYear.setText("" +data.getYear());
         //if else to check what is the stars on the song then set the active radio button
         if (data.getStars() == 1){
             radioButton1.setChecked(true);

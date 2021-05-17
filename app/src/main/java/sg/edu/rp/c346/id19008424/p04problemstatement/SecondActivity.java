@@ -20,21 +20,20 @@ public class SecondActivity extends AppCompatActivity {
     ListView lv;
     SongAdapter sa;
     ArrayList<Song> alSong;
+    SongAdapter aaSong;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
-        RadioGroup radioGroupStar = (RadioGroup) findViewById(R.id.starGroup);
-        int selectedBtn = radioGroupStar.getCheckedRadioButtonId();
-        RadioButton radioButtonStar = (RadioButton) findViewById(selectedBtn);
-        String num = String.valueOf(radioButtonStar.getText());
-        int number = Integer.valueOf(num);
 
         lv = findViewById(R.id.lvSongs);
-        DBHelper dbSong = new DBHelper(SecondActivity.this);
-        alSong = dbSong.getAllSongs(num);
         btn5Stars = findViewById(R.id.btn5StarsSong);
+        DBHelper dbSong = new DBHelper(SecondActivity.this);
+        alSong = dbSong.getAllSongs();
+        aaSong = new SongAdapter(this, R.layout.song, alSong);
+        lv.setAdapter(aaSong);
+
 
         btn5Stars.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,7 +42,7 @@ public class SecondActivity extends AppCompatActivity {
 
             }
         });
-        lv.setAdapter(sa);
+
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
