@@ -2,7 +2,6 @@ package sg.edu.rp.c346.id19008424.p04problemstatement;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,13 +9,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 public class ThirdActivity extends AppCompatActivity {
     EditText etID,etTitle, etSinger, etYear;
     Button btnUpdate, btnDelete, btnCancel;
     RadioGroup RgStars;
-    RadioButton RadioButtonStar, radioButton1, radioButton2, radioButton3, radioButton4, radioButton5;
+    RadioButton radioButtonStar, radioButton1, radioButton2, radioButton3, radioButton4, radioButton5;
     Song data;
 
 
@@ -29,6 +27,7 @@ public class ThirdActivity extends AppCompatActivity {
         etTitle = findViewById(R.id.etTitle);
         etSinger = findViewById(R.id.etSingers);
         etYear = findViewById(R.id.etSongYear);
+        RgStars = findViewById(R.id.RG);
         radioButton1 = findViewById(R.id.radioButton1);
         radioButton2 = findViewById(R.id.radioButton2);
         radioButton3 = findViewById(R.id.radioButton3);
@@ -78,9 +77,9 @@ public class ThirdActivity extends AppCompatActivity {
                 data.setYear(Integer.parseInt(etYear.getText().toString()));
                 data.setId(Integer.parseInt(etID.getText().toString()));
                 int selectedId = RgStars.getCheckedRadioButtonId();
-                if(selectedId != -1){
-                    data.setStars(selectedId);
-                }
+                radioButtonStar = findViewById(selectedId);
+                String selectedStar = radioButtonStar.getText().toString();
+                data.setStars(Integer.parseInt(selectedStar));
                 dbh.updateNote(data);
                 dbh.close();
                 setResult(RESULT_OK, i);
