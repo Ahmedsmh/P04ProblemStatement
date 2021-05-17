@@ -44,7 +44,7 @@ public class SongAdapter extends ArrayAdapter<Song> {
 
 
         Song song = songs.get(position);
-       //image.setImageResource(android.R.drawable.ic_li);
+        image.setImageResource(R.drawable.ic_library_music);
         tvYear.setText("" + song.getYear());
         tvTitle.setText(song.getTitle());
         tvSinger.setText(song.getSingers());
